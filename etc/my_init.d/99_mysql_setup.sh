@@ -9,7 +9,6 @@ if [ ! -d /var/lib/mysql/mysql ]; then
     rm -rf /var/run/mysqld/*
 
     echo 'Starting mysqld'
-    # The sleep 1 is there to make sure that inotifywait starts up before the socket is created
     mysqld_safe &
 
     echo 'Waiting for mysqld to come online'
