@@ -27,9 +27,10 @@ RUN chmod -R 755    /var/lib/mysql/
 ADD build/setup.sh  /etc/mysql/mysql_setup.sh
 RUN chmod +x        /etc/mysql/mysql_setup.sh
 
+ADD etc/my_init.d/99_mysql_setup.sh /etc/my_init.d/99_mysql_setup.sh
+RUN chmod +x /etc/my_init.d/99_mysql_setup.sh
+
 EXPOSE 3306
 # END MySQL Installation
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-CMD ["/etc/mysql/mysql_setup.sh"]
