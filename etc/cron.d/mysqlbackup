@@ -1,0 +1,7 @@
+# For more information see the manual pages of crontab(5) and cron(8)
+# 
+# m h  dom mon dow   command
+
+00 02    *   *   *     root	/opt/mysqlbackup/run.sh D
+00 01    *   *   1     root	/opt/mysqlbackup/run.sh W
+00 00    1   *   *     root	/opt/mysqlbackup/run.sh M
