@@ -38,7 +38,7 @@ function rotate() {
 				if [ -d "$DATADIR/$level.$i" ]; then
 					rm -rfv "$DATADIR/$level.$i"
 				fi
-			done		
+			done
 		fi
 
 		for i in $oldest $(seq $oldest -1 0 ); do
@@ -68,7 +68,17 @@ elif [ "$MODE" == "D" ]; then
 	rotate daily $NUM_DAYS
 
 	mkdir $DATADIR/daily.0
-	mysqldump -uroot -proot --all-tablespaces -R www_e17_dk > $DATADIR/daily.0/www_e17_dk.sql
+	databases=();
+	for dbname in $(echo "SHOW DATABASES" | mysql -uroot -proot|grep -v Database); do
+		[ "$dbname" == 'mysql' ] && continue;
+		[ "$dbname" == 'information_schema' ] && continue;
+		[ "$dbname" == 'backup' ] && continue;
+		[ "$dbname" == "performance_schema" ] && continue;
+		[ "$dbname" == "setup" ] && continue;
+
+		databases+=($dbname);
+	done
+	mysqldump -uroot -proot --all-tablespaces -R --databases ${databases[@]} > $DATADIR/daily.0/$(date +%Y%m%d)-backup.sql
 else
 	echo "Invalid backup mode" > /dev/stderr;
 	exit 1
