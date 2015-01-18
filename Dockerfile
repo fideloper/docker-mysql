@@ -36,3 +36,5 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Generate new SSH-keys last, this deceases built-time for minor changes
 RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
+
+ADD etc/mysql/my.cnf /etc/mysql/my.cnf
