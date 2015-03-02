@@ -18,6 +18,8 @@ if [ ! -d /var/lib/mysql/mysql ]; then
     
     echo 'Setting root password to root'
     /usr/bin/mysqladmin -u root password 'root'
+    /usr/bin/mysql -uroot -proot -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'127.0.0.1' IDENTIFIED BY 'root';"
+    /usr/bin/mysqladmin -uroot -proot reload
 
     if [ -d /var/lib/mysql/setup ]; then
         echo 'Found /var/lib/mysql/setup - scanning for SQL scripts'
