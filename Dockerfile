@@ -9,6 +9,8 @@ CMD ["/sbin/my_init"]
 # Some Environment Variables
 ENV    DEBIAN_FRONTEND noninteractive
 
+RUN sed -i "s/^exit 101$/exit 0/" /usr/sbin/policy-rc.d
+
 # MySQL Installation
 RUN apt-get update
 RUN echo "mysql-server mysql-server/root_password password root" | debconf-set-selections
