@@ -11,7 +11,7 @@ docker build -t mysql .    # Build a Docker image named "mysql" from this locati
 # wait for it to build...
 
 # Run the docker container
-docker run -p 3306:3306 -name mysql -d mysql /sbin/my_init --enable-insecure-key # Give container a name in case it's linked to another app container
+docker run -p 3306:3306 --name mysql -d mysql /sbin/my_init --enable-insecure-key # Give container a name in case it's linked to another app container
 ```
 
 * `docker run` - starts a new docker container
