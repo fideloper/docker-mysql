@@ -9,7 +9,6 @@ if [ ! -d /var/lib/mysql/mysql ]; then
     rm -rf /var/run/mysqld/*
 
     echo 'Starting mysqld'
-    # The sleep 1 is there to make sure that inotifywait starts up before the socket is created
     mysqld_safe &
 
     echo 'Waiting for mysqld to come online'
@@ -19,6 +18,8 @@ if [ ! -d /var/lib/mysql/mysql ]; then
     
     echo 'Setting root password to root'
     /usr/bin/mysqladmin -u root password 'root'
+    /usr/bin/mysql -uroot -proot -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'127.0.0.1' IDENTIFIED BY 'root';"
+    /usr/bin/mysqladmin -uroot -proot reload
 
     if [ -d /var/lib/mysql/setup ]; then
         echo 'Found /var/lib/mysql/setup - scanning for SQL scripts'
